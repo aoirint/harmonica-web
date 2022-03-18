@@ -325,7 +325,7 @@ export type Uuid_Comparison_Exp = {
 export type GetSensorValueQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetSensorValueQuery = { __typename?: 'query_root', light: Array<{ __typename?: 'SensorValue', value: any }>, temperature: Array<{ __typename?: 'SensorValue', value: any }>, humidity: Array<{ __typename?: 'SensorValue', value: any }>, mhz19Co2: Array<{ __typename?: 'SensorValue', value: any }> };
+export type GetSensorValueQuery = { __typename?: 'query_root', light: Array<{ __typename?: 'SensorValue', value: any, timestamp: any }>, temperature: Array<{ __typename?: 'SensorValue', value: any }>, humidity: Array<{ __typename?: 'SensorValue', value: any }>, mhz19Co2: Array<{ __typename?: 'SensorValue', value: any }> };
 
 
 export const GetSensorValueDocument = gql`
@@ -336,6 +336,7 @@ export const GetSensorValueDocument = gql`
     where: {key: {_eq: "light"}}
   ) {
     value
+    timestamp
   }
   temperature: SensorValue(
     limit: 1

@@ -5,6 +5,7 @@ query GetSensorValue {
     where: { key: { _eq: "light" } }
   ) {
     value
+    timestamp
   }
 
   temperature: SensorValue(
