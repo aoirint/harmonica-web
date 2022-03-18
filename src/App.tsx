@@ -26,6 +26,9 @@ function App() {
   const temperature = sensorValueData?.temperature?.[0]?.value
   const mhz19Co2 = sensorValueData?.mhz19Co2?.[0]?.value
 
+  // 5分以上古いデータの場合、センサーに異常が起きていると考えられるため警告
+  const isOldData = timestamp?.isBefore(currentTime?.subtract(5, 'minute'))
+
   React.useEffect(() => {
     const interval = setInterval(() => {
       const nextCurrentTimeString = dayjs().tz('Asia/Tokyo').format()
@@ -41,6 +44,9 @@ function App() {
     <div className="App">
       <p>
         {currentTime?.format('M/D HH:mm:ss')}
+      </p>
+      <p>
+        {isOldData ? 'OLD DATA' : ''}
       </p>
       <p>
         Light: {light ? (light > 150 ? 'On' : 'Off') : ''}
