@@ -12,6 +12,9 @@ function App() {
   const [currentTimeString, setCurrentTimeString] = React.useState<string>(dayjs().tz('Asia/Tokyo').format())
   const currentTime = currentTimeString ? dayjs(currentTimeString) : undefined
 
+  const rawImageUrl = process.env.REACT_APP_IMAGE_URL
+  const [imageUrl, setImageUrl] = React.useState<string | undefined>(rawImageUrl)
+
   const {
     data: sensorValueData
   } = useGetSensorValueQuery({
@@ -35,31 +38,48 @@ function App() {
       setCurrentTimeString(nextCurrentTimeString)
     }, 500)
 
+    const imageInterval = setInterval(() => {
+      const nextImageUrl = rawImageUrl ? (rawImageUrl + '?' + dayjs().unix()) : undefined
+      setImageUrl(nextImageUrl)
+    }, 30*1000)
+
     return () => {
       clearInterval(interval)
+      clearInterval(imageInterval)
     }
   })
 
   return (
     <div className="App">
-      <p>
-        {currentTime?.format('M/D HH:mm:ss')}
-      </p>
-      <p>
-        {isOldData ? 'OLD DATA' : ''}
-      </p>
-      <p>
-        Light: {light ? (light > 150 ? 'On' : 'Off') : ''}
-      </p>
-      <p>
-        Humidity: {humidity ? `${humidity}%` : ''}
-      </p>
-      <p>
-        Temperature: {temperature ? `${temperature}℃` : ''}
-      </p>
-      <p>
-        CO<sub>2</sub>: {mhz19Co2 ? `${mhz19Co2}ppm` : ''}
-      </p>
+      <div style={{
+        display: 'flex',
+      }}>
+        <div>
+          <p>
+            {currentTime?.format('M/D HH:mm:ss')}
+          </p>
+          <p>
+            {isOldData ? 'OLD DATA' : ''}
+          </p>
+          <p>
+            Light: {light ? (light > 150 ? 'On' : 'Off') : ''}
+          </p>
+          <p>
+            Humidity: {humidity ? `${humidity}%` : ''}
+          </p>
+          <p>
+            Temperature: {temperature ? `${temperature}℃` : ''}
+          </p>
+          <p>
+            CO<sub>2</sub>: {mhz19Co2 ? `${mhz19Co2}ppm` : ''}
+          </p>
+        </div>
+        <div style={{
+          margin: '1.5rem',
+        }}>
+          <img src={imageUrl ?? '#'} />
+        </div>
+      </div>
     </div>
   );
 }
