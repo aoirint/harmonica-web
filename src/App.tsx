@@ -23,7 +23,7 @@ function App() {
         Temperature: {temperature ? `${temperature}℃` : ''}
       </p>
       <p>
-        mhz19Co2: {mhz19Co2 ? `${mhz19Co2}ppm` : ''}
+        CO<sub>2</sub>: {mhz19Co2 ? `${mhz19Co2}ppm` : ''}
       </p>
     </div>
   );
