@@ -1,14 +1,16 @@
 query GetSensorValue {
   light: SensorValue(
     limit: 1
-    order_by: {
-      timestamp: desc
-    }
-    where: {
-      key: {
-        _eq: "light"
-      }
-    }
+    order_by: { timestamp: desc }
+    where: { key: { _eq: "light" } }
+  ) {
+    value
+  }
+
+  temperature: SensorValue(
+    limit: 1
+    order_by: { timestamp: desc }
+    where: { key: { _eq: "temperature" } }
   ) {
     value
   }

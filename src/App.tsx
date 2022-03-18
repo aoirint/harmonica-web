@@ -10,12 +10,16 @@ function App() {
     pollInterval: 1000 // ms
   })
 
-  const light = sensorValueData?.light?.[0]?.value ?? 0
+  const light = sensorValueData?.light?.[0]?.value
+  const temperature = sensorValueData?.temperature?.[0]?.value
 
   return (
     <div className="App">
       <p>
-        Light: {light > 150 ? 'On' : 'Off'}
+        Light: {light ? (light > 150 ? 'On' : 'Off') : ''}
+      </p>
+      <p>
+        Temperature: {temperature ? `${temperature}℃` : ''}
       </p>
     </div>
   );
