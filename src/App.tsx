@@ -9,7 +9,7 @@ dayjs.extend(dayjsUtc);
 dayjs.extend(dayjsTimeZone);
 
 function App() {
-  const [currentTimeString, setCurrentTimeString] = React.useState<string>()
+  const [currentTimeString, setCurrentTimeString] = React.useState<string>(dayjs().tz('Asia/Tokyo').format())
   const currentTime = currentTimeString ? dayjs(currentTimeString) : undefined
 
   const {
