@@ -12,6 +12,7 @@ function App() {
 
   const light = sensorValueData?.light?.[0]?.value
   const temperature = sensorValueData?.temperature?.[0]?.value
+  const mhz19Co2 = sensorValueData?.mhz19Co2?.[0]?.value
 
   return (
     <div className="App">
@@ -20,6 +21,9 @@ function App() {
       </p>
       <p>
         Temperature: {temperature ? `${temperature}℃` : ''}
+      </p>
+      <p>
+        mhz19Co2: {mhz19Co2 ? `${mhz19Co2}ppm` : ''}
       </p>
     </div>
   );

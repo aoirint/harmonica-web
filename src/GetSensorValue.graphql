@@ -14,4 +14,12 @@ query GetSensorValue {
   ) {
     value
   }
+
+  mhz19Co2: SensorValue(
+    limit: 1
+    order_by: { timestamp: desc }
+    where: { key: { _eq: "mhz19_co2" } }
+  ) {
+    value
+  }
 }
