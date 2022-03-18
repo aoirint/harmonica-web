@@ -1,0 +1,15 @@
+query GetSensorValue {
+  light: SensorValue(
+    limit: 1
+    order_by: {
+      timestamp: desc
+    }
+    where: {
+      key: {
+        _eq: "light"
+      }
+    }
+  ) {
+    value
+  }
+}
