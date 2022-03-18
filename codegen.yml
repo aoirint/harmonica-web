@@ -1,7 +1,7 @@
 schema:
   - http://127.0.0.1:8080/v1/graphql:
       headers:
-        Authorization: ${SCHEMA_AUTHORIZATION}
+        Authorization: ${REACT_APP_API_AUTHORIZATION}
 documents: './src/**/*.graphql'
 generates:
   ./src/graphql-types.ts:
