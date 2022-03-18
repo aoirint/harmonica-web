@@ -27,7 +27,7 @@ function App() {
   const mhz19Co2 = sensorValueData?.mhz19Co2?.[0]?.value
 
   // 5分以上古いデータの場合、センサーに異常が起きていると考えられるため警告
-  const isOldData = timestamp?.isBefore(currentTime?.subtract(5, 'minute'))
+  const isOldData = timestamp && currentTime ? timestamp?.isBefore(currentTime?.subtract(5, 'minute')) : undefined
 
   React.useEffect(() => {
     const interval = setInterval(() => {
