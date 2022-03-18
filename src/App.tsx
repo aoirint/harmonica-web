@@ -10,7 +10,7 @@ dayjs.extend(dayjsTimeZone);
 
 function App() {
   const [currentTimeString, setCurrentTimeString] = React.useState<string>()
-  const currentTime = dayjs(currentTimeString)
+  const currentTime = currentTimeString ? dayjs(currentTimeString) : undefined
 
   const {
     data: sensorValueData
@@ -33,7 +33,7 @@ function App() {
     const interval = setInterval(() => {
       const nextCurrentTimeString = dayjs().tz('Asia/Tokyo').format()
       setCurrentTimeString(nextCurrentTimeString)
-    })
+    }, 500)
 
     return () => {
       clearInterval(interval)
