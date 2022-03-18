@@ -15,6 +15,14 @@ query GetSensorValue {
     value
   }
 
+  humidity: SensorValue(
+    limit: 1
+    order_by: { timestamp: desc }
+    where: { key: { _eq: "humidity" } }
+  ) {
+    value
+  }
+
   mhz19Co2: SensorValue(
     limit: 1
     order_by: { timestamp: desc }

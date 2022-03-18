@@ -11,6 +11,7 @@ function App() {
   })
 
   const light = sensorValueData?.light?.[0]?.value
+  const humidity = sensorValueData?.humidity?.[0]?.value
   const temperature = sensorValueData?.temperature?.[0]?.value
   const mhz19Co2 = sensorValueData?.mhz19Co2?.[0]?.value
 
@@ -18,6 +19,9 @@ function App() {
     <div className="App">
       <p>
         Light: {light ? (light > 150 ? 'On' : 'Off') : ''}
+      </p>
+      <p>
+        Humidity: {humidity ? `${humidity}%` : ''}
       </p>
       <p>
         Temperature: {temperature ? `${temperature}℃` : ''}
