@@ -8,7 +8,38 @@ import dayjsTimeZone from 'dayjs/plugin/timezone';
 dayjs.extend(dayjsUtc);
 dayjs.extend(dayjsTimeZone);
 
-function App() {
+const TokenContext = React.createContext<string | undefined>(undefined);
+
+function TokenInputPage({
+  setToken
+}: {
+  setToken: (token: string | undefined) => void
+}) {
+  const tokenInputRef = React.createRef<HTMLInputElement>()
+
+  return (
+    <div className='TokenInputPage'>
+      <p>
+        <label>
+          Token:
+        </label>
+        <input type="password" ref={tokenInputRef} />
+      </p>
+      <button onClick={() => {
+        const tokenValue = tokenInputRef.current?.value
+        setToken(tokenValue ? tokenValue : undefined)
+      }}>
+        Set
+      </button>
+    </div>
+  )
+}
+
+function AppPage({
+  setToken
+}: {
+  setToken: (token: string | undefined) => void
+}) {
   const [currentTimeString, setCurrentTimeString] = React.useState<string>(dayjs().tz('Asia/Tokyo').format())
   const currentTime = currentTimeString ? dayjs(currentTimeString) : undefined
 
@@ -50,7 +81,7 @@ function App() {
   })
 
   return (
-    <div className="App">
+    <div className='AppPage'>
       <div style={{
         display: 'flex',
       }}>
@@ -80,8 +111,47 @@ function App() {
           <img src={imageUrl ?? '#'} />
         </div>
       </div>
+      <div>
+        <div
+          onClick={() => {
+            setToken(undefined);
+          }}
+          style={{
+            float: 'right',
+            width: '32px',
+            height: '32px',
+            cursor: 'pointer',
+            border: '1px solid #666666',
+          }}
+        >
+        </div>
+      </div>
     </div>
   );
+}
+
+function App() {
+  const [token, setToken] = React.useState<string | undefined>(localStorage.getItem('token') ?? undefined);
+
+  React.useEffect(() => {
+    if (token !== undefined) {
+      localStorage.setItem('token', token);
+    } else {
+      localStorage.removeItem('token');
+    }
+  });
+
+  return (
+    <TokenContext.Provider value={token}>
+      <div className="App">
+        {token === undefined ? (
+          <TokenInputPage setToken={setToken} />
+        ) : (
+          <AppPage setToken={setToken} />
+        )}
+      </div>
+    </TokenContext.Provider>
+  )
 }
 
 export default App;
