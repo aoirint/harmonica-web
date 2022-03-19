@@ -5,6 +5,7 @@ import { useGetSensorValueQuery } from './graphql-types';
 import dayjs from 'dayjs';
 import dayjsUtc from 'dayjs/plugin/utc';
 import dayjsTimeZone from 'dayjs/plugin/timezone';
+import { useApolloClient } from '@apollo/client';
 dayjs.extend(dayjsUtc);
 dayjs.extend(dayjsTimeZone);
 
@@ -40,6 +41,8 @@ function AppPage({
 }: {
   setToken: (token: string | undefined) => void
 }) {
+  const apolloClient = useApolloClient()
+
   const [currentTimeString, setCurrentTimeString] = React.useState<string>(dayjs().tz('Asia/Tokyo').format())
   const currentTime = currentTimeString ? dayjs(currentTimeString) : undefined
 
@@ -114,6 +117,7 @@ function AppPage({
       <div>
         <div
           onClick={() => {
+            apolloClient.resetStore();
             setToken(undefined);
           }}
           style={{
