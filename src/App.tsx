@@ -47,7 +47,7 @@ function AppPage({
   const currentTime = currentTimeString ? dayjs(currentTimeString) : undefined
 
   const rawImageUrl = process.env.REACT_APP_IMAGE_URL
-  const [imageUrl, setImageUrl] = React.useState<string | undefined>(rawImageUrl)
+  const [imageUrl, setImageUrl] = React.useState<string | undefined>(rawImageUrl + '?' + dayjs().unix())
 
   const {
     data: sensorValueData
