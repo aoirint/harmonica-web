@@ -59,17 +59,11 @@ function AppPage({
   smokePingImageUrl.search = `displaymode=a;start=${smokePingCgiStart};end=${smokePingCgiEnd};target=${smokePingTarget}`
 
   const {
-    data: sensorValueLatestData,
-    previousData: sensorValuePrevData
+    data: sensorValueData
   } = useGetSensorValueQuery({
-    variables: {
-      currentTime: currentTime.toISOString()
-    },
-    fetchPolicy: 'cache-and-network'
-    // pollInterval: 1000 // ms
+    fetchPolicy: 'no-cache',
+    pollInterval: 1000 // ms
   })
-
-  const sensorValueData = sensorValueLatestData ?? sensorValuePrevData
 
   const light = sensorValueData?.light?.[0]?.value
   const timestampString = sensorValueData?.light?.[0]?.timestamp
