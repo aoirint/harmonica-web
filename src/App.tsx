@@ -110,6 +110,11 @@ function AppPage({
           <p>
             CO<sub>2</sub>: {mhz19Co2 ? `${mhz19Co2}ppm` : ''}
           </p>
+          <p style={{
+            fontSize: '10pt',
+          }}>
+            {timestamp?.format('(M/D HH:mm:ss)')}
+          </p>
         </div>
         <div style={{
           margin: '1.5rem',
