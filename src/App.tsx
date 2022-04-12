@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import dayjsUtc from 'dayjs/plugin/utc';
 import dayjsTimeZone from 'dayjs/plugin/timezone';
 import { useApolloClient } from '@apollo/client';
+import assert from 'assert';
 dayjs.extend(dayjsUtc);
 dayjs.extend(dayjsTimeZone);
 
@@ -44,10 +45,18 @@ function AppPage({
   const apolloClient = useApolloClient()
 
   const [currentTimeString, setCurrentTimeString] = React.useState<string>(dayjs().tz('Asia/Tokyo').format())
-  const currentTime = currentTimeString ? dayjs(currentTimeString) : undefined
+  const currentTime = dayjs(currentTimeString)
 
-  const rawImageUrl = process.env.REACT_APP_IMAGE_URL
-  const [imageUrl, setImageUrl] = React.useState<string | undefined>(rawImageUrl + '?' + dayjs().unix())
+  const smokePingUrl = process.env.REACT_APP_SMOKEPING_URL
+  assert(smokePingUrl !== undefined)
+
+  const smokePingTarget = process.env.REACT_APP_SMOKEPING_TARGET
+  assert(smokePingTarget !== undefined)
+
+  const smokePingCgiStart = currentTime.subtract(3, 'hour').format('YYYY-MM-DD HH:mm')
+  const smokePingCgiEnd = currentTime.format('YYYY-MM-DD HH:mm')
+  const smokePingImageUrl = new URL('/smokeping/smokeping.cgi', smokePingUrl)
+  smokePingImageUrl.search = `displaymode=a;start=${smokePingCgiStart};end=${smokePingCgiEnd};target=${smokePingTarget}`
 
   const {
     data: sensorValueData
@@ -64,7 +73,7 @@ function AppPage({
   const mhz19Co2 = sensorValueData?.mhz19Co2?.[0]?.value
 
   // 5分以上古いデータの場合、センサーに異常が起きていると考えられるため警告
-  const isOldData = timestamp && currentTime ? timestamp?.isBefore(currentTime?.subtract(5, 'minute')) : undefined
+  const isOldData = timestamp ? timestamp.isBefore(currentTime.subtract(5, 'minute')) : undefined
 
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -72,14 +81,8 @@ function AppPage({
       setCurrentTimeString(nextCurrentTimeString)
     }, 500)
 
-    const imageInterval = setInterval(() => {
-      const nextImageUrl = rawImageUrl ? (rawImageUrl + '?' + dayjs().unix()) : undefined
-      setImageUrl(nextImageUrl)
-    }, 30*1000)
-
     return () => {
       clearInterval(interval)
-      clearInterval(imageInterval)
     }
   })
 
@@ -111,7 +114,7 @@ function AppPage({
         <div style={{
           margin: '1.5rem',
         }}>
-          <img src={imageUrl ?? '#'} />
+          <img src={smokePingImageUrl?.toString() ?? '#'} />
         </div>
       </div>
       <div>
