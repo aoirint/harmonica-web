@@ -1,5 +1,18 @@
 # Harmonica Web
 
+## Develop
+
+```shell
+npm ci
+```
+
+## Deploy
+
+```shell
+npm run build
+rsync -av --delete build/ server:target-dir
+```
+
 ---
 
 # Getting Started with Create React App
