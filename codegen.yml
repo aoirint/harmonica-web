@@ -1,7 +1,7 @@
 schema:
   - http://127.0.0.1:8080/v1/graphql:
       headers:
-        Authorization: ${REACT_APP_API_AUTHORIZATION}
+        X-Hasura-Admin-Secret: myadminsecretkey
 documents: './src/**/*.graphql'
 generates:
   ./src/graphql-types.ts:

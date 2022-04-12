@@ -78,6 +78,27 @@ export type SensorValue_Bool_Exp = {
   value?: InputMaybe<Numeric_Comparison_Exp>;
 };
 
+/** unique or primary key constraints on table "SensorValue" */
+export enum SensorValue_Constraint {
+  /** unique or primary key constraint */
+  SensorValuePkey = 'SensorValue_pkey'
+}
+
+/** input type for incrementing numeric columns in table "SensorValue" */
+export type SensorValue_Inc_Input = {
+  value?: InputMaybe<Scalars['numeric']>;
+};
+
+/** input type for inserting data into table "SensorValue" */
+export type SensorValue_Insert_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  key?: InputMaybe<Scalars['String']>;
+  timestamp?: InputMaybe<Scalars['timestamptz']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']>;
+  value?: InputMaybe<Scalars['numeric']>;
+};
+
 /** aggregate max on columns */
 export type SensorValue_Max_Fields = {
   __typename?: 'SensorValue_max_fields';
@@ -100,6 +121,22 @@ export type SensorValue_Min_Fields = {
   value?: Maybe<Scalars['numeric']>;
 };
 
+/** response of any mutation on the table "SensorValue" */
+export type SensorValue_Mutation_Response = {
+  __typename?: 'SensorValue_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<SensorValue>;
+};
+
+/** on_conflict condition type for table "SensorValue" */
+export type SensorValue_On_Conflict = {
+  constraint: SensorValue_Constraint;
+  update_columns?: Array<SensorValue_Update_Column>;
+  where?: InputMaybe<SensorValue_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "SensorValue". */
 export type SensorValue_Order_By = {
   created_at?: InputMaybe<Order_By>;
@@ -108,6 +145,11 @@ export type SensorValue_Order_By = {
   timestamp?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   value?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: SensorValue */
+export type SensorValue_Pk_Columns_Input = {
+  id: Scalars['uuid'];
 };
 
 /** select columns of table "SensorValue" */
@@ -125,6 +167,16 @@ export enum SensorValue_Select_Column {
   /** column name */
   Value = 'value'
 }
+
+/** input type for updating data in table "SensorValue" */
+export type SensorValue_Set_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  key?: InputMaybe<Scalars['String']>;
+  timestamp?: InputMaybe<Scalars['timestamptz']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']>;
+  value?: InputMaybe<Scalars['numeric']>;
+};
 
 /** aggregate stddev on columns */
 export type SensorValue_Stddev_Fields = {
@@ -149,6 +201,22 @@ export type SensorValue_Sum_Fields = {
   __typename?: 'SensorValue_sum_fields';
   value?: Maybe<Scalars['numeric']>;
 };
+
+/** update columns of table "SensorValue" */
+export enum SensorValue_Update_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Key = 'key',
+  /** column name */
+  Timestamp = 'timestamp',
+  /** column name */
+  UpdatedAt = 'updated_at',
+  /** column name */
+  Value = 'value'
+}
 
 /** aggregate var_pop on columns */
 export type SensorValue_Var_Pop_Fields = {
@@ -199,6 +267,65 @@ export type String_Comparison_Exp = {
   _regex?: InputMaybe<Scalars['String']>;
   /** does the column match the given SQL regular expression */
   _similar?: InputMaybe<Scalars['String']>;
+};
+
+/** mutation root */
+export type Mutation_Root = {
+  __typename?: 'mutation_root';
+  /** delete data from the table: "SensorValue" */
+  delete_SensorValue?: Maybe<SensorValue_Mutation_Response>;
+  /** delete single row from the table: "SensorValue" */
+  delete_SensorValue_by_pk?: Maybe<SensorValue>;
+  /** insert data into the table: "SensorValue" */
+  insert_SensorValue?: Maybe<SensorValue_Mutation_Response>;
+  /** insert a single row into the table: "SensorValue" */
+  insert_SensorValue_one?: Maybe<SensorValue>;
+  /** update data of the table: "SensorValue" */
+  update_SensorValue?: Maybe<SensorValue_Mutation_Response>;
+  /** update single row of the table: "SensorValue" */
+  update_SensorValue_by_pk?: Maybe<SensorValue>;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_SensorValueArgs = {
+  where: SensorValue_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_SensorValue_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_SensorValueArgs = {
+  objects: Array<SensorValue_Insert_Input>;
+  on_conflict?: InputMaybe<SensorValue_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_SensorValue_OneArgs = {
+  object: SensorValue_Insert_Input;
+  on_conflict?: InputMaybe<SensorValue_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_SensorValueArgs = {
+  _inc?: InputMaybe<SensorValue_Inc_Input>;
+  _set?: InputMaybe<SensorValue_Set_Input>;
+  where: SensorValue_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_SensorValue_By_PkArgs = {
+  _inc?: InputMaybe<SensorValue_Inc_Input>;
+  _set?: InputMaybe<SensorValue_Set_Input>;
+  pk_columns: SensorValue_Pk_Columns_Input;
 };
 
 /** Boolean expression to compare columns of type "numeric". All fields are combined with logical 'AND'. */
