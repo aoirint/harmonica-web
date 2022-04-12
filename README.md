@@ -4,6 +4,8 @@
 
 ```shell
 npm ci
+
+cp template.env .env
 ```
 
 ## Deploy
