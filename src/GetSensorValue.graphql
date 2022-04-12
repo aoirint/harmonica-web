@@ -1,8 +1,13 @@
-query GetSensorValue {
+query GetSensorValue(
+  $currentTime: timestamptz!
+) {
   light: SensorValue(
     limit: 1
     order_by: { timestamp: desc }
-    where: { key: { _eq: "light" } }
+    where: {
+      key: { _eq: "light" }
+      timestamp: { _lte: $currentTime }
+    }
   ) {
     value
     timestamp
@@ -11,7 +16,10 @@ query GetSensorValue {
   temperature: SensorValue(
     limit: 1
     order_by: { timestamp: desc }
-    where: { key: { _eq: "temperature" } }
+    where: {
+      key: { _eq: "temperature" }
+      timestamp: { _lte: $currentTime }
+    }
   ) {
     value
   }
@@ -19,7 +27,10 @@ query GetSensorValue {
   humidity: SensorValue(
     limit: 1
     order_by: { timestamp: desc }
-    where: { key: { _eq: "humidity" } }
+    where: {
+      key: { _eq: "humidity" }
+      timestamp: { _lte: $currentTime }
+    }
   ) {
     value
   }
@@ -27,7 +38,10 @@ query GetSensorValue {
   mhz19Co2: SensorValue(
     limit: 1
     order_by: { timestamp: desc }
-    where: { key: { _eq: "mhz19_co2" } }
+    where: {
+      key: { _eq: "mhz19_co2" }
+      timestamp: { _lte: $currentTime }
+    }
   ) {
     value
   }
