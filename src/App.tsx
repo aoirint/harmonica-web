@@ -119,7 +119,9 @@ function AppPage({
         <div style={{
           margin: '1.5rem',
         }}>
-          <img src={smokePingImageUrl?.toString() ?? '#'} />
+          <img src={smokePingImageUrl?.toString() ?? '#'} style={{
+            width: '100%',
+          }} />
         </div>
       </div>
       <div>
