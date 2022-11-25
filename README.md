@@ -1,5 +1,8 @@
 # Harmonica Web
 
+- Node 14
+- npm 6
+
 ## Develop
 
 ```shell
