@@ -1,5 +1,12 @@
 # Harmonica Web
 
+自宅センサーモニター用Webフロントエンドアプリ（React製）。
+
+Next.js実装に移行したため、メンテナンスを終了します。
+
+- <https://github.com/aoirint/harmonica-web-next>
+
+
 ## Runtime
 
 - Node 18
